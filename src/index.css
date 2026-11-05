@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: #050505;
+    --platinum: #e5e4e2;
+    --gold: #d4af37;
+    --blood: #8b0000;
+    --vivid-red: #ff4d4d;
+  }
+}
+
+@layer base {
+  * {
+    border-color: rgba(229, 228, 226, 0.2);
+    border-radius: 0 !important;
+  }
+
+  body {
+    background: #050505;
+    color: #e5e4e2;
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background: #d4af37;
+    color: #050505;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #d4af37 !important;
+    outline-offset: 1px;
+  }
+}
+
+.font-heading {
+  font-family: 'JetBrains Mono', monospace;
+}
+.font-mono {
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+}
+
+/* Scanline overlay */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(229, 228, 226, 0.02) 2px,
+    rgba(229, 228, 226, 0.02) 4px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanlines::after {
+    display: none;
+  }
+  .blink-anim,
+  .marquee-anim {
+    animation: none !important;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.blink-anim {
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes transmit {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.transmit-anim {
+  animation: transmit 2s ease-out forwards;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(229, 228, 226, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #0a0a0a;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-scroll {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-scroll:hover {
+  animation-play-state: paused;
+}
